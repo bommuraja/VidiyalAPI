@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VidiyalDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Center">
+          <Key>
+            <PropertyRef Name="CenterID" />
+          </Key>
+          <Property Name="CenterID" Type="int" Nullable="false" />
+          <Property Name="CenterName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterHeadName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterAddressLine1" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterAddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterContactNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterStartDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="YearOfBirth" Type="nvarchar" MaxLength="50" />
+          <Property Name="KYCDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdharcardDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="VoterID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber1" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber2" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactNumber3" Type="nvarchar" MaxLength="50" />
+          <Property Name="CenterID" Type="int" />
+          <Property Name="PermanentAddressLine1" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentAddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="PermanentPinCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemporaryAddressLine1" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemporaryAddressLine2" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemporaryCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemporaryPinCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="JoiningDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="VidiyalDataModelStoreContainer">
+          <EntitySet Name="Center" EntityType="Self.Center" Schema="bommuraj_vidiyal" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="bommuraj_vidiyal" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VidiyalDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="bommuraj_Vidiyal" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Centers" EntityType="VidiyalDataModel.Center" />
+          <EntitySet Name="Customers" EntityType="VidiyalDataModel.Customer" />
+        </EntityContainer>
+        <EntityType Name="Center">
+          <Key>
+            <PropertyRef Name="CenterID" />
+          </Key>
+          <Property Name="CenterID" Type="Int32" Nullable="false" />
+          <Property Name="CenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterHeadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="YearOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="KYCDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdharcardDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VoterID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactNumber3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterID" Type="Int32" />
+          <Property Name="PermanentAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PermanentPinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemporaryAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemporaryAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemporaryCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemporaryPinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="JoiningDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VidiyalDataModelStoreContainer" CdmEntityContainer="bommuraj_Vidiyal">
+          <EntitySetMapping Name="Centers">
+            <EntityTypeMapping TypeName="VidiyalDataModel.Center">
+              <MappingFragment StoreEntitySet="Center">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CenterStartDate" ColumnName="CenterStartDate" />
+                <ScalarProperty Name="CenterContactNumber" ColumnName="CenterContactNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CenterAddressLine2" ColumnName="CenterAddressLine2" />
+                <ScalarProperty Name="CenterAddressLine1" ColumnName="CenterAddressLine1" />
+                <ScalarProperty Name="CenterHeadName" ColumnName="CenterHeadName" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="VidiyalDataModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+                <ScalarProperty Name="TemporaryPinCode" ColumnName="TemporaryPinCode" />
+                <ScalarProperty Name="TemporaryCity" ColumnName="TemporaryCity" />
+                <ScalarProperty Name="TemporaryAddressLine2" ColumnName="TemporaryAddressLine2" />
+                <ScalarProperty Name="TemporaryAddressLine1" ColumnName="TemporaryAddressLine1" />
+                <ScalarProperty Name="PermanentPinCode" ColumnName="PermanentPinCode" />
+                <ScalarProperty Name="PermanentCity" ColumnName="PermanentCity" />
+                <ScalarProperty Name="PermanentAddressLine2" ColumnName="PermanentAddressLine2" />
+                <ScalarProperty Name="PermanentAddressLine1" ColumnName="PermanentAddressLine1" />
+                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
+                <ScalarProperty Name="ContactNumber3" ColumnName="ContactNumber3" />
+                <ScalarProperty Name="ContactNumber2" ColumnName="ContactNumber2" />
+                <ScalarProperty Name="ContactNumber1" ColumnName="ContactNumber1" />
+                <ScalarProperty Name="VoterID" ColumnName="VoterID" />
+                <ScalarProperty Name="AdharcardDetails" ColumnName="AdharcardDetails" />
+                <ScalarProperty Name="KYCDetails" ColumnName="KYCDetails" />
+                <ScalarProperty Name="YearOfBirth" ColumnName="YearOfBirth" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
