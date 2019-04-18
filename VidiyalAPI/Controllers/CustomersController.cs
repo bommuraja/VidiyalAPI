@@ -25,8 +25,6 @@ namespace VidiyalAPI.Controllers
             {
                 List<CustomerData> objList = new List<CustomerData>();
 
-                var asdf = db.Customers.ToList();
-
                 foreach (var item in db.Customers)
                 {
                     objList.Add(
