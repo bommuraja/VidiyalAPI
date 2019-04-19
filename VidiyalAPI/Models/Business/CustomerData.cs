@@ -17,5 +17,15 @@ namespace VidiyalAPI.Models.Business
         public string ContactNumber2 { get; set; }
         public string ContactNumber3 { get; set; }
         public Nullable<int> CenterID { get; set; }
+        public string PermanentAddressLine1 { get; set; }
+        public string PermanentAddressLine2 { get; set; }
+        public string PermanentCity { get; set; }
+        public string PermanentPinCode { get; set; }
+        public string TemporaryAddressLine1 { get; set; }
+        public string TemporaryAddressLine2 { get; set; }
+        public string TemporaryCity { get; set; }
+        public string TemporaryPinCode { get; set; }
+        public string JoiningDate { get; set; }
+        public int IsActive { get; set; }
     }
 }

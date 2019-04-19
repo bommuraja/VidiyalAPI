@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="CenterID" />
           </Key>
-          <Property Name="CenterID" Type="int" Nullable="false" />
+          <Property Name="CenterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CenterName" Type="nvarchar" MaxLength="50" />
           <Property Name="CenterHeadName" Type="nvarchar" MaxLength="50" />
           <Property Name="CenterAddressLine1" Type="nvarchar" MaxLength="50" />
@@ -54,24 +54,9 @@
     <edmx:ConceptualModels>
       <Schema Namespace="VidiyalDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="bommuraj_Vidiyal" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Centers" EntityType="VidiyalDataModel.Center" />
           <EntitySet Name="Customers" EntityType="VidiyalDataModel.Customer" />
+          <EntitySet Name="Centers" EntityType="VidiyalDataModel.Center" />
         </EntityContainer>
-        <EntityType Name="Center">
-          <Key>
-            <PropertyRef Name="CenterID" />
-          </Key>
-          <Property Name="CenterID" Type="Int32" Nullable="false" />
-          <Property Name="CenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterHeadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
@@ -97,28 +82,27 @@
           <Property Name="JoiningDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="Center">
+          <Key>
+            <PropertyRef Name="CenterID" />
+          </Key>
+          <Property Name="CenterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterHeadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VidiyalDataModelStoreContainer" CdmEntityContainer="bommuraj_Vidiyal">
-          <EntitySetMapping Name="Centers">
-            <EntityTypeMapping TypeName="VidiyalDataModel.Center">
-              <MappingFragment StoreEntitySet="Center">
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CenterStartDate" ColumnName="CenterStartDate" />
-                <ScalarProperty Name="CenterContactNumber" ColumnName="CenterContactNumber" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="CenterAddressLine2" ColumnName="CenterAddressLine2" />
-                <ScalarProperty Name="CenterAddressLine1" ColumnName="CenterAddressLine1" />
-                <ScalarProperty Name="CenterHeadName" ColumnName="CenterHeadName" />
-                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
-                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="VidiyalDataModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
@@ -142,6 +126,22 @@
                 <ScalarProperty Name="YearOfBirth" ColumnName="YearOfBirth" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Centers">
+            <EntityTypeMapping TypeName="VidiyalDataModel.Center">
+              <MappingFragment StoreEntitySet="Center">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CenterStartDate" ColumnName="CenterStartDate" />
+                <ScalarProperty Name="CenterContactNumber" ColumnName="CenterContactNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CenterAddressLine2" ColumnName="CenterAddressLine2" />
+                <ScalarProperty Name="CenterAddressLine1" ColumnName="CenterAddressLine1" />
+                <ScalarProperty Name="CenterHeadName" ColumnName="CenterHeadName" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

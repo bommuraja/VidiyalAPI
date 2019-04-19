@@ -39,7 +39,17 @@ namespace VidiyalAPI.Controllers
                             ContactNumber1 = item.ContactNumber1,
                             ContactNumber2 = item.ContactNumber2,
                             ContactNumber3 = item.ContactNumber3,
-                            CenterID = item.CenterID
+                            CenterID = item.CenterID,
+                            PermanentAddressLine1 = item.PermanentAddressLine1,
+                            PermanentAddressLine2 = item.PermanentAddressLine2,
+                            PermanentCity = item.PermanentCity,
+                            PermanentPinCode = item.PermanentPinCode,
+                            TemporaryAddressLine1 = item.TemporaryAddressLine1,
+                            TemporaryAddressLine2 = item.TemporaryAddressLine2,
+                            TemporaryCity = item.TemporaryCity,
+                            TemporaryPinCode = item.TemporaryPinCode,
+                            JoiningDate = item.JoiningDate,
+                            IsActive = item.IsActive
 
                         }
                     );
@@ -58,14 +68,14 @@ namespace VidiyalAPI.Controllers
         [Route("api/DropCustomer/{id}")]
         public bool GetRemoveCustomerDetail(int id)
         {
-            var cashPaymentStatu = db.Customers.Find(id);
-            if (cashPaymentStatu == null)
+            var customer = db.Customers.Find(id);
+            if (customer == null)
             {
                 return false;
             }
             try
             {
-                db.Customers.Remove(cashPaymentStatu);
+                db.Customers.Remove(customer);
                 db.SaveChanges();
                 return true;
             }
@@ -96,7 +106,17 @@ namespace VidiyalAPI.Controllers
                     ContactNumber1 = customer.ContactNumber1,
                     ContactNumber2 = customer.ContactNumber2,
                     ContactNumber3 = customer.ContactNumber3,
-                    CenterID = customer.CenterID
+                    CenterID = customer.CenterID,
+                    PermanentAddressLine1 = customer.PermanentAddressLine1,
+                    PermanentAddressLine2 = customer.PermanentAddressLine2,
+                    PermanentCity = customer.PermanentCity,
+                    PermanentPinCode = customer.PermanentPinCode,
+                    TemporaryAddressLine1 = customer.TemporaryAddressLine1,
+                    TemporaryAddressLine2 = customer.TemporaryAddressLine2,
+                    TemporaryCity = customer.TemporaryCity,
+                    TemporaryPinCode = customer.TemporaryPinCode,
+                    JoiningDate = customer.JoiningDate,
+                    IsActive = customer.IsActive
                 };
             }
             return obj;
@@ -126,6 +146,16 @@ namespace VidiyalAPI.Controllers
                 obj.ContactNumber2 = customerData.ContactNumber2;
                 obj.ContactNumber3 = customerData.ContactNumber3;
                 obj.CenterID = customerData.CenterID;
+                obj.PermanentAddressLine1 = customerData.PermanentAddressLine1;
+                obj.PermanentAddressLine2 = customerData.PermanentAddressLine2;
+                obj.PermanentCity = customerData.PermanentCity;
+                obj.PermanentPinCode = customerData.PermanentPinCode;
+                obj.TemporaryAddressLine1 = customerData.TemporaryAddressLine1;
+                obj.TemporaryAddressLine2 = customerData.TemporaryAddressLine2;
+                obj.TemporaryCity = customerData.TemporaryCity;
+                obj.TemporaryPinCode = customerData.TemporaryPinCode;
+                obj.JoiningDate = customerData.JoiningDate;
+                obj.IsActive = customerData.IsActive;
 
                 db.SaveChanges();
 
@@ -143,7 +173,17 @@ namespace VidiyalAPI.Controllers
                     ContactNumber1 = customerData.ContactNumber1,
                     ContactNumber2 = customerData.ContactNumber2,
                     ContactNumber3 = customerData.ContactNumber3,
-                    CenterID = customerData.CenterID
+                    CenterID = customerData.CenterID,
+                    PermanentAddressLine1 = customerData.PermanentAddressLine1,
+                    PermanentAddressLine2 = customerData.PermanentAddressLine2,
+                    PermanentCity = customerData.PermanentCity,
+                    PermanentPinCode = customerData.PermanentPinCode,
+                    TemporaryAddressLine1 = customerData.TemporaryAddressLine1,
+                    TemporaryAddressLine2 = customerData.TemporaryAddressLine2,
+                    TemporaryCity = customerData.TemporaryCity,
+                    TemporaryPinCode = customerData.TemporaryPinCode,
+                    JoiningDate = customerData.JoiningDate,
+                    IsActive = customerData.IsActive
                 };
                 db.Customers.Add(obj);
                 db.SaveChanges();

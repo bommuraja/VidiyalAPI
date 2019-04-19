@@ -25,7 +25,7 @@ namespace VidiyalAPI
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Center> Centers { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Center> Centers { get; set; }
     }
 }
