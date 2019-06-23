@@ -5,7 +5,7 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="VidiyalDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Center">
+        <EntityType Name="Centers">
           <Key>
             <PropertyRef Name="CenterID" />
           </Key>
@@ -20,7 +20,16 @@
           <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Customer">
+        <EntityType Name="CustomerRegStatus">
+          <Key>
+            <PropertyRef Name="CustomerRegStatusID" />
+          </Key>
+          <Property Name="CustomerRegStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerRegStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
@@ -43,20 +52,286 @@
           <Property Name="TemporaryCity" Type="nvarchar" MaxLength="50" />
           <Property Name="TemporaryPinCode" Type="nvarchar" MaxLength="50" />
           <Property Name="JoiningDate" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsActive" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="int" />
+          <Property Name="IncomeTypeOne" Type="int" />
+          <Property Name="IncomeTypeTwo" Type="int" />
+          <Property Name="IncomeTypeThree" Type="int" />
+          <Property Name="IncomeNoteOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeNoteTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeNoteThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeAmountOne" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeAmountTwo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeAmountThree" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerRegStatusID" Type="int" />
+          <Property Name="RegStatusEnterdByID" Type="int" />
+          <Property Name="RegStatusEnterdByDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegStatusReviewedByID" Type="int" />
+          <Property Name="RegStatusReviewedByDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="RegStatusApprovedByID" Type="int" />
+          <Property Name="RegStatusApprovedByDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="IncomeTypes">
+          <Key>
+            <PropertyRef Name="IncomeTypeID" />
+          </Key>
+          <Property Name="IncomeTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IncomeType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AliesName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedDate" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Customers_Centers">
+          <End Role="Centers" Type="Self.Centers" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Centers">
+              <PropertyRef Name="CenterID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="CenterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegistrationStatus">
+          <End Role="CustomerRegStatus" Type="Self.CustomerRegStatus" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerRegStatus">
+              <PropertyRef Name="CustomerRegStatusID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="CustomerRegStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusApprove">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="RegStatusApprovedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusEntry">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="RegStatusEnterdByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusReview">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="RegStatusReviewedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes">
+          <End Role="IncomeTypes" Type="Self.IncomeTypes" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeTypes">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="IncomeTypeOne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes1">
+          <End Role="IncomeTypes" Type="Self.IncomeTypes" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeTypes">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="IncomeTypeTwo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes2">
+          <End Role="IncomeTypes" Type="Self.IncomeTypes" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeTypes">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="IncomeTypeThree" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="VidiyalDataModelStoreContainer">
-          <EntitySet Name="Center" EntityType="Self.Center" Schema="bommuraj_vidiyal" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="bommuraj_vidiyal" store:Type="Tables" />
+          <EntitySet Name="Centers" EntityType="Self.Centers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerRegStatus" EntityType="Self.CustomerRegStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomeTypes" EntityType="Self.IncomeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customers_Centers" Association="Self.FK_Customers_Centers">
+            <End Role="Centers" EntitySet="Centers" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegistrationStatus" Association="Self.FK_Customers_CustomerRegistrationStatus">
+            <End Role="CustomerRegStatus" EntitySet="CustomerRegStatus" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusApprove" Association="Self.FK_Customers_CustomerRegStatusApprove">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusEntry" Association="Self.FK_Customers_CustomerRegStatusEntry">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusReview" Association="Self.FK_Customers_CustomerRegStatusReview">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes" Association="Self.FK_Customers_IncomeTypes">
+            <End Role="IncomeTypes" EntitySet="IncomeTypes" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes1" Association="Self.FK_Customers_IncomeTypes1">
+            <End Role="IncomeTypes" EntitySet="IncomeTypes" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes2" Association="Self.FK_Customers_IncomeTypes2">
+            <End Role="IncomeTypes" EntitySet="IncomeTypes" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Role" Association="Self.FK_UserAccount_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserAccount" EntitySet="UserAccount" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VidiyalDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="bommuraj_Vidiyal" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Customers" EntityType="VidiyalDataModel.Customer" />
           <EntitySet Name="Centers" EntityType="VidiyalDataModel.Center" />
+          <EntitySet Name="CustomerRegStatus" EntityType="VidiyalDataModel.CustomerRegStatu" />
+          <EntitySet Name="Customers" EntityType="VidiyalDataModel.Customer" />
+          <EntitySet Name="IncomeTypes" EntityType="VidiyalDataModel.IncomeType" />
+          <EntitySet Name="Roles" EntityType="VidiyalDataModel.Role" />
+          <EntitySet Name="UserAccounts" EntityType="VidiyalDataModel.UserAccount" />
+          <AssociationSet Name="FK_Customers_Centers" Association="VidiyalDataModel.FK_Customers_Centers">
+            <End Role="Center" EntitySet="Centers" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegistrationStatus" Association="VidiyalDataModel.FK_Customers_CustomerRegistrationStatus">
+            <End Role="CustomerRegStatu" EntitySet="CustomerRegStatus" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusApprove" Association="VidiyalDataModel.FK_Customers_CustomerRegStatusApprove">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusEntry" Association="VidiyalDataModel.FK_Customers_CustomerRegStatusEntry">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_CustomerRegStatusReview" Association="VidiyalDataModel.FK_Customers_CustomerRegStatusReview">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes" Association="VidiyalDataModel.FK_Customers_IncomeTypes">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes1" Association="VidiyalDataModel.FK_Customers_IncomeTypes1">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_IncomeTypes2" Association="VidiyalDataModel.FK_Customers_IncomeTypes2">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Role" Association="VidiyalDataModel.FK_UserAccount_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Center">
+          <Key>
+            <PropertyRef Name="CenterID" />
+          </Key>
+          <Property Name="CenterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterHeadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CenterStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="VidiyalDataModel.FK_Customers_Centers" FromRole="Center" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="CustomerRegStatu">
+          <Key>
+            <PropertyRef Name="CustomerRegStatusID" />
+          </Key>
+          <Property Name="CustomerRegStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerRegStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="VidiyalDataModel.FK_Customers_CustomerRegistrationStatus" FromRole="CustomerRegStatu" ToRole="Customer" />
+        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
@@ -80,32 +355,237 @@
           <Property Name="TemporaryCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TemporaryPinCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="JoiningDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Center">
-          <Key>
-            <PropertyRef Name="CenterID" />
-          </Key>
-          <Property Name="CenterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CenterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterHeadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterAddressLine1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterAddressLine2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterContactNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CenterStartDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Int32" />
+          <Property Name="IncomeTypeOne" Type="Int32" />
+          <Property Name="IncomeTypeTwo" Type="Int32" />
+          <Property Name="IncomeTypeThree" Type="Int32" />
+          <Property Name="IncomeNoteOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeNoteTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeNoteThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeAmountOne" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeAmountTwo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeAmountThree" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerRegStatusID" Type="Int32" />
+          <Property Name="RegStatusEnterdByID" Type="Int32" />
+          <Property Name="RegStatusEnterdByDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegStatusReviewedByID" Type="Int32" />
+          <Property Name="RegStatusReviewedByDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RegStatusApprovedByID" Type="Int32" />
+          <Property Name="RegStatusApprovedByDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Center" Relationship="VidiyalDataModel.FK_Customers_Centers" FromRole="Customer" ToRole="Center" />
+          <NavigationProperty Name="CustomerRegStatu" Relationship="VidiyalDataModel.FK_Customers_CustomerRegistrationStatus" FromRole="Customer" ToRole="CustomerRegStatu" />
+          <NavigationProperty Name="UserAccount" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusApprove" FromRole="Customer" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAccount1" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusEntry" FromRole="Customer" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAccount2" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusReview" FromRole="Customer" ToRole="UserAccount" />
+          <NavigationProperty Name="IncomeType" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes" FromRole="Customer" ToRole="IncomeType" />
+          <NavigationProperty Name="IncomeType1" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes1" FromRole="Customer" ToRole="IncomeType" />
+          <NavigationProperty Name="IncomeType2" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes2" FromRole="Customer" ToRole="IncomeType" />
         </EntityType>
-      </Schema>
+        <EntityType Name="IncomeType">
+          <Key>
+            <PropertyRef Name="IncomeTypeID" />
+          </Key>
+          <Property Name="IncomeTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IncomeType1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes" FromRole="IncomeType" ToRole="Customer" />
+          <NavigationProperty Name="Customers1" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes1" FromRole="IncomeType" ToRole="Customer" />
+          <NavigationProperty Name="Customers2" Relationship="VidiyalDataModel.FK_Customers_IncomeTypes2" FromRole="IncomeType" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserAccounts" Relationship="VidiyalDataModel.FK_UserAccount_Role" FromRole="Role" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="UserAccount">
+          <Key>
+            <PropertyRef Name="UserAccountID" />
+          </Key>
+          <Property Name="UserAccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Int32" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AliesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusApprove" FromRole="UserAccount" ToRole="Customer" />
+          <NavigationProperty Name="Customers1" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusEntry" FromRole="UserAccount" ToRole="Customer" />
+          <NavigationProperty Name="Customers2" Relationship="VidiyalDataModel.FK_Customers_CustomerRegStatusReview" FromRole="UserAccount" ToRole="Customer" />
+          <NavigationProperty Name="Role" Relationship="VidiyalDataModel.FK_UserAccount_Role" FromRole="UserAccount" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Customers_Centers">
+          <End Type="VidiyalDataModel.Center" Role="Center" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Center">
+              <PropertyRef Name="CenterID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CenterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegistrationStatus">
+          <End Type="VidiyalDataModel.CustomerRegStatu" Role="CustomerRegStatu" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerRegStatu">
+              <PropertyRef Name="CustomerRegStatusID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="CustomerRegStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusApprove">
+          <End Type="VidiyalDataModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="RegStatusApprovedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusEntry">
+          <End Type="VidiyalDataModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="RegStatusEnterdByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_CustomerRegStatusReview">
+          <End Type="VidiyalDataModel.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="RegStatusReviewedByID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes">
+          <End Type="VidiyalDataModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="IncomeTypeOne" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes1">
+          <End Type="VidiyalDataModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="IncomeTypeTwo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customers_IncomeTypes2">
+          <End Type="VidiyalDataModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="IncomeTypeID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="IncomeTypeThree" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserAccount_Role">
+          <End Type="VidiyalDataModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="VidiyalDataModel.UserAccount" Role="UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserAccount">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VidiyalDataModelStoreContainer" CdmEntityContainer="bommuraj_Vidiyal">
+          <EntitySetMapping Name="Centers">
+            <EntityTypeMapping TypeName="VidiyalDataModel.Center">
+              <MappingFragment StoreEntitySet="Centers">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CenterStartDate" ColumnName="CenterStartDate" />
+                <ScalarProperty Name="CenterContactNumber" ColumnName="CenterContactNumber" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CenterAddressLine2" ColumnName="CenterAddressLine2" />
+                <ScalarProperty Name="CenterAddressLine1" ColumnName="CenterAddressLine1" />
+                <ScalarProperty Name="CenterHeadName" ColumnName="CenterHeadName" />
+                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
+                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerRegStatus">
+            <EntityTypeMapping TypeName="VidiyalDataModel.CustomerRegStatu">
+              <MappingFragment StoreEntitySet="CustomerRegStatus">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CustomerRegStatus" ColumnName="CustomerRegStatus" />
+                <ScalarProperty Name="CustomerRegStatusID" ColumnName="CustomerRegStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="VidiyalDataModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="RegStatusApprovedByDate" ColumnName="RegStatusApprovedByDate" />
+                <ScalarProperty Name="RegStatusApprovedByID" ColumnName="RegStatusApprovedByID" />
+                <ScalarProperty Name="RegStatusReviewedByDate" ColumnName="RegStatusReviewedByDate" />
+                <ScalarProperty Name="RegStatusReviewedByID" ColumnName="RegStatusReviewedByID" />
+                <ScalarProperty Name="RegStatusEnterdByDate" ColumnName="RegStatusEnterdByDate" />
+                <ScalarProperty Name="RegStatusEnterdByID" ColumnName="RegStatusEnterdByID" />
+                <ScalarProperty Name="CustomerRegStatusID" ColumnName="CustomerRegStatusID" />
+                <ScalarProperty Name="IncomeAmountThree" ColumnName="IncomeAmountThree" />
+                <ScalarProperty Name="IncomeAmountTwo" ColumnName="IncomeAmountTwo" />
+                <ScalarProperty Name="IncomeAmountOne" ColumnName="IncomeAmountOne" />
+                <ScalarProperty Name="IncomeNoteThree" ColumnName="IncomeNoteThree" />
+                <ScalarProperty Name="IncomeNoteTwo" ColumnName="IncomeNoteTwo" />
+                <ScalarProperty Name="IncomeNoteOne" ColumnName="IncomeNoteOne" />
+                <ScalarProperty Name="IncomeTypeThree" ColumnName="IncomeTypeThree" />
+                <ScalarProperty Name="IncomeTypeTwo" ColumnName="IncomeTypeTwo" />
+                <ScalarProperty Name="IncomeTypeOne" ColumnName="IncomeTypeOne" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
                 <ScalarProperty Name="TemporaryPinCode" ColumnName="TemporaryPinCode" />
@@ -129,19 +609,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Centers">
-            <EntityTypeMapping TypeName="VidiyalDataModel.Center">
-              <MappingFragment StoreEntitySet="Center">
+          <EntitySetMapping Name="IncomeTypes">
+            <EntityTypeMapping TypeName="VidiyalDataModel.IncomeType">
+              <MappingFragment StoreEntitySet="IncomeTypes">
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CenterStartDate" ColumnName="CenterStartDate" />
-                <ScalarProperty Name="CenterContactNumber" ColumnName="CenterContactNumber" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="CenterAddressLine2" ColumnName="CenterAddressLine2" />
-                <ScalarProperty Name="CenterAddressLine1" ColumnName="CenterAddressLine1" />
-                <ScalarProperty Name="CenterHeadName" ColumnName="CenterHeadName" />
-                <ScalarProperty Name="CenterName" ColumnName="CenterName" />
-                <ScalarProperty Name="CenterID" ColumnName="CenterID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IncomeDescription" ColumnName="IncomeDescription" />
+                <ScalarProperty Name="IncomeType1" ColumnName="IncomeType" />
+                <ScalarProperty Name="IncomeTypeID" ColumnName="IncomeTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="VidiyalDataModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAccounts">
+            <EntityTypeMapping TypeName="VidiyalDataModel.UserAccount">
+              <MappingFragment StoreEntitySet="UserAccount">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AliesName" ColumnName="AliesName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserAccountID" ColumnName="UserAccountID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

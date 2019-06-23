@@ -12,26 +12,31 @@ namespace VidiyalAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Center
+    public partial class UserAccount
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Center()
+        public UserAccount()
         {
             this.Customers = new HashSet<Customer>();
+            this.Customers1 = new HashSet<Customer>();
+            this.Customers2 = new HashSet<Customer>();
         }
     
-        public int CenterID { get; set; }
-        public string CenterName { get; set; }
-        public string CenterHeadName { get; set; }
-        public string CenterAddressLine1 { get; set; }
-        public string CenterAddressLine2 { get; set; }
-        public string City { get; set; }
-        public string CenterContactNumber { get; set; }
-        public string CenterStartDate { get; set; }
+        public int UserAccountID { get; set; }
+        public Nullable<int> RoleID { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string FullName { get; set; }
+        public string AliesName { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers2 { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

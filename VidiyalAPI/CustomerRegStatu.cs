@@ -12,22 +12,16 @@ namespace VidiyalAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Center
+    public partial class CustomerRegStatu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Center()
+        public CustomerRegStatu()
         {
             this.Customers = new HashSet<Customer>();
         }
     
-        public int CenterID { get; set; }
-        public string CenterName { get; set; }
-        public string CenterHeadName { get; set; }
-        public string CenterAddressLine1 { get; set; }
-        public string CenterAddressLine2 { get; set; }
-        public string City { get; set; }
-        public string CenterContactNumber { get; set; }
-        public string CenterStartDate { get; set; }
+        public int CustomerRegStatusID { get; set; }
+        public string CustomerRegStatus { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
     

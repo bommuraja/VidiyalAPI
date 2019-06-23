@@ -12,26 +12,28 @@ namespace VidiyalAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Center
+    public partial class IncomeType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Center()
+        public IncomeType()
         {
             this.Customers = new HashSet<Customer>();
+            this.Customers1 = new HashSet<Customer>();
+            this.Customers2 = new HashSet<Customer>();
         }
     
-        public int CenterID { get; set; }
-        public string CenterName { get; set; }
-        public string CenterHeadName { get; set; }
-        public string CenterAddressLine1 { get; set; }
-        public string CenterAddressLine2 { get; set; }
-        public string City { get; set; }
-        public string CenterContactNumber { get; set; }
-        public string CenterStartDate { get; set; }
+        public int IncomeTypeID { get; set; }
+        public string IncomeType1 { get; set; }
+        public string IncomeDescription { get; set; }
+        public Nullable<bool> IsActive { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers2 { get; set; }
     }
 }

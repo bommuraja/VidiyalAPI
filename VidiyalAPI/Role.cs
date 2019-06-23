@@ -12,26 +12,21 @@ namespace VidiyalAPI
     using System;
     using System.Collections.Generic;
     
-    public partial class Center
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Center()
+        public Role()
         {
-            this.Customers = new HashSet<Customer>();
+            this.UserAccounts = new HashSet<UserAccount>();
         }
     
-        public int CenterID { get; set; }
-        public string CenterName { get; set; }
-        public string CenterHeadName { get; set; }
-        public string CenterAddressLine1 { get; set; }
-        public string CenterAddressLine2 { get; set; }
-        public string City { get; set; }
-        public string CenterContactNumber { get; set; }
-        public string CenterStartDate { get; set; }
+        public int RoleID { get; set; }
+        public string RoleName { get; set; }
+        public string Description { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<UserAccount> UserAccounts { get; set; }
     }
 }
