@@ -7,10 +7,11 @@
       <Diagram DiagramId="9c12927a5e3545c6a01129af28aa6dec" Name="Diagram1">
         <EntityTypeShape EntityType="VidiyalDataModel.Center" Width="1.5" PointX="0.75" PointY="16.5" />
         <EntityTypeShape EntityType="VidiyalDataModel.CustomerRegStatu" Width="1.5" PointX="0.75" PointY="9.875" />
-        <EntityTypeShape EntityType="VidiyalDataModel.Customer" Width="1.5" PointX="3" PointY="1.75" />
         <EntityTypeShape EntityType="VidiyalDataModel.IncomeType" Width="1.5" PointX="0.75" PointY="5.375" />
         <EntityTypeShape EntityType="VidiyalDataModel.Role" Width="1.5" PointX="1.5" PointY="13.375" />
         <EntityTypeShape EntityType="VidiyalDataModel.UserAccount" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="VidiyalDataModel.FK_UserAccount_Role" />
+        <EntityTypeShape EntityType="VidiyalDataModel.Customer" Width="1.5" PointX="4" PointY="5" />
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_Centers" />
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_CustomerRegistrationStatus" />
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_CustomerRegStatusApprove" />
@@ -19,7 +20,6 @@
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_IncomeTypes" />
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_IncomeTypes1" />
         <AssociationConnector Association="VidiyalDataModel.FK_Customers_IncomeTypes2" />
-        <AssociationConnector Association="VidiyalDataModel.FK_UserAccount_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

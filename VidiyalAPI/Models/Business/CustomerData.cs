@@ -17,6 +17,7 @@ namespace VidiyalAPI.Models.Business
         public string ContactNumber2 { get; set; }
         public string ContactNumber3 { get; set; }
         public Nullable<int> CenterID { get; set; }
+        public string CenterName { get; set; }
         public string PermanentAddressLine1 { get; set; }
         public string PermanentAddressLine2 { get; set; }
         public string PermanentCity { get; set; }
@@ -29,8 +30,11 @@ namespace VidiyalAPI.Models.Business
         public Nullable<int> IsActive { get; set; }
 
         public Nullable<int> IncomeTypeOne { get; set; }
+        public string IncomeTypeOneName { get; set; }
         public Nullable<int> IncomeTypeTwo { get; set; }
+        public string IncomeTypeTwoName { get; set; }
         public Nullable<int> IncomeTypeThree { get; set; }
+        public string IncomeTypeThreeName { get; set; }
         public string IncomeNoteOne { get; set; }
         public string IncomeNoteTwo { get; set; }
         public string IncomeNoteThree { get; set; }
@@ -39,14 +43,22 @@ namespace VidiyalAPI.Models.Business
         public string IncomeAmountThree { get; set; }
 
         public Nullable<int> CustomerRegStatusID { get; set; }
+        public string CustomerRegStatusName { get; set; }
         public Nullable<int> RegStatusEnterdByID { get; set; }
+        public string RegStatusEnterdByName { get; set; }
         public string RegStatusEnterdByDate { get; set; }
         public Nullable<int> RegStatusReviewedByID { get; set; }
+        public string RegStatusReviewedByName { get; set; }
         public string RegStatusReviewedByDate { get; set; }
         public Nullable<int> RegStatusApprovedByID { get; set; }
+        public string RegStatusApprovedByName { get; set; }
         public string RegStatusApprovedByDate { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+
+        public string EntryComments { get; set; }
+        public string ReviewComments { get; set; }
+        public string ApproveComments { get; set; }
 
         public virtual CenterData Center { get; set; }
         public virtual CustomerRegStatu CustomerRegStatu { get; set; }
@@ -58,5 +70,8 @@ namespace VidiyalAPI.Models.Business
         public virtual List<IncomeTypeData> IncomeType { get; set; }
         public virtual List<IncomeTypeData> IncomeType1 { get; set; }
         public virtual List<IncomeTypeData> IncomeType2 { get; set; }
+
+        public virtual List<CenterData> CenterList { get; set; }
+        public virtual List<UserAccountData> UserAccountList { get; set; }
     }
 }

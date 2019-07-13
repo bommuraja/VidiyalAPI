@@ -98,6 +98,22 @@ namespace VidiyalAPI.Controllers
                     CreatedBy = center.CreatedBy
                 };
             }
+            else
+            {
+                obj = new CenterData
+                {
+                    CenterID = 0,
+                    CenterName = "",
+                    CenterHeadName = "",
+                    CenterAddressLine1 = "",
+                    CenterAddressLine2 = "",
+                    City = "",
+                    CenterContactNumber = "",
+                    CenterStartDate = "",
+                    CreatedDate = "",
+                    CreatedBy = ""
+                };
+            }
             return obj;
         }
 

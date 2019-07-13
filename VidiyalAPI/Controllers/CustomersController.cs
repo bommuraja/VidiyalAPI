@@ -32,8 +32,8 @@ namespace VidiyalAPI.Controllers
                 {
                     IncomeTypelist.Add(new IncomeTypeData
                     {
-                        IncomeType1=item.IncomeType1,
-                        IncomeTypeID=item.IncomeTypeID
+                        IncomeType1 = item.IncomeType1,
+                        IncomeTypeID = item.IncomeTypeID
                     });
                 }
 
@@ -44,8 +44,33 @@ namespace VidiyalAPI.Controllers
                 {
                     CustomerRegStatuslist.Add(new CustomerRegStatusData
                     {
-                       CustomerRegStatusID=item.CustomerRegStatusID,
-                       CustomerRegStatus=item.CustomerRegStatus
+                        CustomerRegStatusID = item.CustomerRegStatusID,
+                        CustomerRegStatus = item.CustomerRegStatus
+                    });
+                }
+
+                var Centerlist = new List<CenterData>();
+                var CenterDB = db.Centers.ToList();
+
+                foreach (var item in CenterDB)
+                {
+                    Centerlist.Add(new CenterData
+                    {
+                        CenterID = item.CenterID,
+                        CenterName = item.CenterName
+                    });
+                }
+
+                var UserAccountList = new List<UserAccountData>();
+
+                var UserAccount = db.UserAccounts.ToList();
+
+                foreach (var item in UserAccount)
+                {
+                    UserAccountList.Add(new UserAccountData
+                    {
+                        UserAccountID = item.UserAccountID,
+                        FullName = item.FullName
                     });
                 }
 
@@ -65,6 +90,8 @@ namespace VidiyalAPI.Controllers
                             ContactNumber2 = item.ContactNumber2,
                             ContactNumber3 = item.ContactNumber3,
                             CenterID = item.CenterID,
+                            CenterName = (item.CenterID != null && item.CenterID != 0) ? Centerlist.Where(m => m.CenterID == item.CenterID).FirstOrDefault().CenterName : "",
+                            CenterList = new List<CenterData>(),
                             PermanentAddressLine1 = item.PermanentAddressLine1,
                             PermanentAddressLine2 = item.PermanentAddressLine2,
                             PermanentCity = item.PermanentCity,
@@ -75,28 +102,39 @@ namespace VidiyalAPI.Controllers
                             TemporaryPinCode = item.TemporaryPinCode,
                             JoiningDate = item.JoiningDate,
                             IsActive = item.IsActive,
-                            IncomeType = IncomeTypelist,                            
-                            IncomeType1 = IncomeTypelist,
-                            IncomeType2 = IncomeTypelist,
+                            IncomeType = new List<IncomeTypeData>(),                            
+                            IncomeType1 = new List<IncomeTypeData>(),
+                            IncomeType2 = new List<IncomeTypeData>(),
                             IncomeTypeOne = item.IncomeTypeOne,
+                            IncomeTypeOneName = (item.IncomeTypeOne != null && item.IncomeTypeOne != 0) ? IncomeTypelist.Where(m => m.IncomeTypeID == item.IncomeTypeOne).FirstOrDefault().IncomeType1 : "",
                             IncomeTypeTwo = item.IncomeTypeTwo,
+                            IncomeTypeTwoName = (item.IncomeTypeTwo != null && item.IncomeTypeTwo != 0) ? IncomeTypelist.Where(m => m.IncomeTypeID == item.IncomeTypeTwo).FirstOrDefault().IncomeType1 : "",
                             IncomeTypeThree = item.IncomeTypeThree,
+                            IncomeTypeThreeName = (item.IncomeTypeThree != null && item.IncomeTypeThree != 0) ? IncomeTypelist.Where(m => m.IncomeTypeID == item.IncomeTypeThree).FirstOrDefault().IncomeType1 : "",
                             IncomeNoteOne =item.IncomeNoteOne,
                             IncomeNoteTwo=item.IncomeNoteTwo,
                             IncomeNoteThree=item.IncomeNoteThree,
                             IncomeAmountOne=item.IncomeAmountOne,
                             IncomeAmountTwo=item.IncomeAmountTwo,
                             IncomeAmountThree=item.IncomeAmountThree,
-                            CustomerRegStatusList  = CustomerRegStatuslist,
+                            CustomerRegStatusList  = new List<CustomerRegStatusData>(),
                             CustomerRegStatusID =item.CustomerRegStatusID,
-                            RegStatusEnterdByID=item.RegStatusEnterdByID,
-                            RegStatusEnterdByDate=item.RegStatusEnterdByDate,
+                            CustomerRegStatusName = (item.CustomerRegStatusID != null && item.CustomerRegStatusID != 0) ? CustomerRegStatuslist.Where(m => m.CustomerRegStatusID == item.CustomerRegStatusID).FirstOrDefault().CustomerRegStatus : "",
+                            UserAccountList = new List<UserAccountData>(),
+                            RegStatusEnterdByID =item.RegStatusEnterdByID,
+                            RegStatusEnterdByName = (item.RegStatusEnterdByID != null && item.RegStatusEnterdByID != 0) ? UserAccountList.Where(m => m.UserAccountID == item.RegStatusEnterdByID).FirstOrDefault().FullName : "",
+                            RegStatusEnterdByDate =item.RegStatusEnterdByDate,
                             RegStatusReviewedByID=item.RegStatusReviewedByID,
-                            RegStatusReviewedByDate=item.RegStatusReviewedByDate,
+                            RegStatusReviewedByName = (item.RegStatusReviewedByID != null && item.RegStatusReviewedByID != 0) ? UserAccountList.Where(m => m.UserAccountID == item.RegStatusReviewedByID).FirstOrDefault().FullName : "",
+                            RegStatusReviewedByDate =item.RegStatusReviewedByDate,
                             RegStatusApprovedByID=item.RegStatusApprovedByID,
-                            RegStatusApprovedByDate=item.RegStatusApprovedByDate,
+                            RegStatusApprovedByName = (item.RegStatusApprovedByID != null && item.RegStatusApprovedByID != 0) ? UserAccountList.Where(m => m.UserAccountID == item.RegStatusApprovedByID).FirstOrDefault().FullName : "",
+                            RegStatusApprovedByDate =item.RegStatusApprovedByDate,
                             CreatedDate=item.CreatedDate,
-                            CreatedBy=item.CreatedBy
+                            CreatedBy=item.CreatedBy,
+                            EntryComments=item.EntryComments,
+                            ReviewComments=item.ReviewComments,
+                            ApproveComments=item.ApproveComments
 
                         }
                     );
@@ -164,6 +202,30 @@ namespace VidiyalAPI.Controllers
                 });
             }
 
+            var Centerlist = new List<CenterData>();
+            var CenterDB = db.Centers.ToList();
+
+            foreach (var item in CenterDB)
+            {
+                Centerlist.Add(new CenterData
+                {
+                    CenterID = item.CenterID,
+                    CenterName = item.CenterName
+                });
+            }
+            var UserAccountList = new List<UserAccountData>();
+
+            var UserAccount = db.UserAccounts.ToList();
+
+            foreach (var item in UserAccount)
+            {
+                UserAccountList.Add(new UserAccountData
+                {
+                    UserAccountID = item.UserAccountID,
+                    FullName = item.FullName
+                });
+            }
+
             CustomerData obj = new CustomerData();
             if (customer != null)
             {
@@ -179,6 +241,8 @@ namespace VidiyalAPI.Controllers
                     ContactNumber2 = customer.ContactNumber2,
                     ContactNumber3 = customer.ContactNumber3,
                     CenterID = customer.CenterID,
+                    CenterName= (customer.Center!=null)?customer.Center.CenterName:"",
+                    CenterList = Centerlist,
                     PermanentAddressLine1 = customer.PermanentAddressLine1,
                     PermanentAddressLine2 = customer.PermanentAddressLine2,
                     PermanentCity = customer.PermanentCity,
@@ -193,8 +257,11 @@ namespace VidiyalAPI.Controllers
                     IncomeType1 = IncomeTypelist,
                     IncomeType2 = IncomeTypelist,
                     IncomeTypeOne = customer.IncomeTypeOne,
+                    IncomeTypeOneName = (customer.IncomeTypeOne!=null && customer.IncomeTypeOne != 0) ? db.IncomeTypes.Where(m=>m.IncomeTypeID== customer.IncomeTypeOne).FirstOrDefault().IncomeType1:"",
                     IncomeTypeTwo = customer.IncomeTypeTwo,
+                    IncomeTypeTwoName = (customer.IncomeTypeTwo != null && customer.IncomeTypeTwo != 0) ? db.IncomeTypes.Where(m => m.IncomeTypeID == customer.IncomeTypeTwo).FirstOrDefault().IncomeType1 : "",
                     IncomeTypeThree = customer.IncomeTypeThree,
+                    IncomeTypeThreeName = (customer.IncomeTypeThree != null && customer.IncomeTypeThree != 0) ? db.IncomeTypes.Where(m => m.IncomeTypeID == customer.IncomeTypeThree).FirstOrDefault().IncomeType1 : "",
                     IncomeNoteOne = customer.IncomeNoteOne,
                     IncomeNoteTwo = customer.IncomeNoteTwo,
                     IncomeNoteThree = customer.IncomeNoteThree,
@@ -203,14 +270,75 @@ namespace VidiyalAPI.Controllers
                     IncomeAmountThree = customer.IncomeAmountThree,
                     CustomerRegStatusList = CustomerRegStatuslist,
                     CustomerRegStatusID = customer.CustomerRegStatusID,
+                    CustomerRegStatusName = (customer.CustomerRegStatusID != null && customer.CustomerRegStatusID != 0) ? db.CustomerRegStatus.Where(m => m.CustomerRegStatusID == customer.CustomerRegStatusID).FirstOrDefault().CustomerRegStatus : "",
+                    UserAccountList = UserAccountList,
                     RegStatusEnterdByID = customer.RegStatusEnterdByID,
+                    RegStatusEnterdByName = (customer.RegStatusEnterdByID != null && customer.RegStatusEnterdByID != 0) ? db.UserAccounts.Where(m => m.UserAccountID == customer.RegStatusEnterdByID).FirstOrDefault().FullName : "",
                     RegStatusEnterdByDate = customer.RegStatusEnterdByDate,
                     RegStatusReviewedByID = customer.RegStatusReviewedByID,
+                    RegStatusReviewedByName = (customer.RegStatusReviewedByID != null && customer.RegStatusReviewedByID != 0) ? db.UserAccounts.Where(m => m.UserAccountID == customer.RegStatusReviewedByID).FirstOrDefault().FullName : "",
                     RegStatusReviewedByDate = customer.RegStatusReviewedByDate,
                     RegStatusApprovedByID = customer.RegStatusApprovedByID,
+                    RegStatusApprovedByName = (customer.RegStatusApprovedByID != null && customer.RegStatusApprovedByID != 0) ? db.UserAccounts.Where(m => m.UserAccountID == customer.RegStatusApprovedByID).FirstOrDefault().FullName : "",
                     RegStatusApprovedByDate = customer.RegStatusApprovedByDate,
                     CreatedDate = customer.CreatedDate,
-                    CreatedBy = customer.CreatedBy
+                    CreatedBy = customer.CreatedBy,
+                    EntryComments=customer.EntryComments,
+                    ReviewComments=customer.ReviewComments,
+                    ApproveComments=customer.ApproveComments
+                };
+            }
+            else
+            {
+                obj = new CustomerData
+                {
+                    CustomerID = 0,
+                    CustomerName = "",
+                    YearOfBirth ="",
+                    KYCDetails = "",
+                    AdharcardDetails = "",
+                    VoterID = "",
+                    ContactNumber1 = "",
+                    ContactNumber2 = "",
+                    ContactNumber3 = "",
+                    CenterID = 0,
+                    CenterList = Centerlist,
+                    PermanentAddressLine1 = "",
+                    PermanentAddressLine2 = "",
+                    PermanentCity = "",
+                    PermanentPinCode = "",
+                    TemporaryAddressLine1 = "",
+                    TemporaryAddressLine2 ="",
+                    TemporaryCity = "",
+                    TemporaryPinCode = "",
+                    JoiningDate = "",
+                    IsActive = 0,
+                    IncomeType = IncomeTypelist,
+                    IncomeType1 = IncomeTypelist,
+                    IncomeType2 = IncomeTypelist,
+                    IncomeTypeOne = 0,
+                    IncomeTypeTwo = 0,
+                    IncomeTypeThree = 0,
+                    IncomeNoteOne = "",
+                    IncomeNoteTwo = "",
+                    IncomeNoteThree = "",
+                    IncomeAmountOne = "",
+                    IncomeAmountTwo = "",
+                    IncomeAmountThree = "",
+                    CustomerRegStatusList = CustomerRegStatuslist,
+                    CustomerRegStatusID = 0,
+                    UserAccountList = UserAccountList,
+                    RegStatusEnterdByID = 0,
+                    RegStatusEnterdByDate = "",
+                    RegStatusReviewedByID = 0,
+                    RegStatusReviewedByDate = "",
+                    RegStatusApprovedByID = 0,
+                    RegStatusApprovedByDate = "",
+                    CreatedDate = "",
+                    CreatedBy = "",
+                    EntryComments="",
+                    ReviewComments="",
+                    ApproveComments=""
                 };
             }
             return obj;
@@ -253,9 +381,9 @@ namespace VidiyalAPI.Controllers
                     obj.JoiningDate = customerData.JoiningDate;
                     obj.IsActive = customerData.IsActive;
 
-                    obj.IncomeTypeOne = customerData.IncomeTypeOne;
-                    obj.IncomeTypeTwo = customerData.IncomeTypeTwo;
-                    obj.IncomeTypeThree = customerData.IncomeTypeThree;
+                    obj.IncomeTypeOne = null;
+                    obj.IncomeTypeTwo = null;
+                    obj.IncomeTypeThree = null;
                     obj.IncomeNoteOne = customerData.IncomeNoteOne;
                     obj.IncomeNoteTwo = customerData.IncomeNoteTwo;
                     obj.IncomeNoteThree = customerData.IncomeNoteThree;
@@ -263,15 +391,19 @@ namespace VidiyalAPI.Controllers
                     obj.IncomeAmountTwo = customerData.IncomeAmountTwo;
                     obj.IncomeAmountThree = customerData.IncomeAmountThree;
 
-                    obj.CustomerRegStatusID = customerData.CustomerRegStatusID;
-                    obj.RegStatusEnterdByID = customerData.RegStatusEnterdByID;
+                    obj.CustomerRegStatusID = (customerData.CustomerRegStatusID > 0) ? customerData.CustomerRegStatusID : null;
+                    obj.RegStatusEnterdByID = (customerData.RegStatusEnterdByID > 0) ? customerData.RegStatusEnterdByID : null;
                     obj.RegStatusEnterdByDate = customerData.RegStatusEnterdByDate;
-                    obj.RegStatusReviewedByID = customerData.RegStatusReviewedByID;
+                    obj.RegStatusReviewedByID = (customerData.RegStatusReviewedByID > 0) ? customerData.RegStatusReviewedByID : null;
                     obj.RegStatusReviewedByDate = customerData.RegStatusReviewedByDate;
-                    obj.RegStatusApprovedByID = customerData.RegStatusApprovedByID;
+                    obj.RegStatusApprovedByID = (customerData.RegStatusApprovedByID > 0) ? customerData.RegStatusApprovedByID : null;
                     obj.RegStatusApprovedByDate = customerData.RegStatusApprovedByDate;
                     obj.CreatedDate = customerData.CreatedDate;
                     obj.CreatedBy = customerData.CreatedBy;
+
+                    obj.EntryComments = customerData.EntryComments;
+                    obj.ReviewComments = customerData.ReviewComments;
+                    obj.ApproveComments = customerData.ApproveComments;
 
                     db.SaveChanges();
 
@@ -301,9 +433,9 @@ namespace VidiyalAPI.Controllers
                         JoiningDate = customerData.JoiningDate,
                         IsActive = customerData.IsActive,
 
-                        IncomeTypeOne = customerData.IncomeTypeOne,
-                        IncomeTypeTwo = customerData.IncomeTypeTwo,
-                        IncomeTypeThree = customerData.IncomeTypeThree,
+                        IncomeTypeOne = null,
+                        IncomeTypeTwo = null,
+                        IncomeTypeThree = null,
                         IncomeNoteOne = customerData.IncomeNoteOne,
                         IncomeNoteTwo = customerData.IncomeNoteTwo,
                         IncomeNoteThree = customerData.IncomeNoteThree,
@@ -311,15 +443,19 @@ namespace VidiyalAPI.Controllers
                         IncomeAmountTwo = customerData.IncomeAmountTwo,
                         IncomeAmountThree = customerData.IncomeAmountThree,
 
-                        CustomerRegStatusID = customerData.CustomerRegStatusID,
-                        RegStatusEnterdByID = customerData.RegStatusEnterdByID,
+                        CustomerRegStatusID = (customerData.CustomerRegStatusID > 0) ? customerData.CustomerRegStatusID : null,
+                        RegStatusEnterdByID = (customerData.RegStatusEnterdByID > 0) ? customerData.RegStatusEnterdByID : null,
                         RegStatusEnterdByDate = customerData.RegStatusEnterdByDate,
-                        RegStatusReviewedByID = customerData.RegStatusReviewedByID,
+                        RegStatusReviewedByID = (customerData.RegStatusReviewedByID > 0)? customerData.RegStatusReviewedByID : null,
                         RegStatusReviewedByDate = customerData.RegStatusReviewedByDate,
-                        RegStatusApprovedByID = customerData.RegStatusApprovedByID,
+                        RegStatusApprovedByID = (customerData.RegStatusApprovedByID>0)? customerData.RegStatusApprovedByID:null,
                         RegStatusApprovedByDate = customerData.RegStatusApprovedByDate,
                         CreatedDate = customerData.CreatedDate,
-                        CreatedBy = customerData.CreatedBy
+                        CreatedBy = customerData.CreatedBy,
+
+                        EntryComments=customerData.EntryComments,
+                        ReviewComments=customerData.ReviewComments,
+                        ApproveComments=customerData.ApproveComments
                     };
                     db.Customers.Add(obj);
                     db.SaveChanges();

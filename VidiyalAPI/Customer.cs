@@ -52,6 +52,9 @@ namespace VidiyalAPI
         public string RegStatusApprovedByDate { get; set; }
         public string CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public string EntryComments { get; set; }
+        public string ReviewComments { get; set; }
+        public string ApproveComments { get; set; }
     
         public virtual Center Center { get; set; }
         public virtual CustomerRegStatu CustomerRegStatu { get; set; }

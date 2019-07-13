@@ -27,9 +27,9 @@ namespace VidiyalAPI
     
         public virtual DbSet<Center> Centers { get; set; }
         public virtual DbSet<CustomerRegStatu> CustomerRegStatus { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<IncomeType> IncomeTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
     }
 }
