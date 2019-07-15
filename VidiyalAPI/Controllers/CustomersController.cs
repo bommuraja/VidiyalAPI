@@ -345,7 +345,7 @@ namespace VidiyalAPI.Controllers
         }
 
         // Method : 4
-        // POST: api/UserAccounts
+        // POST: api/UserAccounts // test
         [ResponseType(typeof(CustomerData))]
         public IHttpActionResult PostCustomer(CustomerData customerData)
         {
